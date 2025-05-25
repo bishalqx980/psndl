@@ -1,4 +1,4 @@
-async function fetch_database(database_path = "./core/database.json") {
+async function fetch_database(database_path = "https://psndl.pages.dev/database.json") {
     try {
         const response = await fetch(database_path);
 
