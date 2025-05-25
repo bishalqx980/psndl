@@ -1,0 +1,89 @@
+body {
+    font-family: sans-serif;
+    width: 100%;
+    margin: auto;
+    background-color: rgb(255, 255, 255);
+    color: rgb(110, 110, 110);
+}
+
+hr {
+    width: 80%;
+    opacity: 25%;
+}
+
+a {
+    color: rgb(100, 180, 255);
+}
+
+.title {
+    text-align: center;
+}
+
+.main-div {
+    width: 80%;
+    margin: auto;
+}
+
+#search_key {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: solid 2px rgb(225, 225, 225);
+    border-radius: 5px;
+    outline-color: rgb(100, 180, 255);
+}
+
+#filter_packages {
+    width: 80px;
+    border: solid 1px rgb(225, 225, 225);
+    border-bottom: solid 3px rgb(225, 225, 225);
+    outline: none;
+}
+
+.btn {
+    /* width: 200px; */
+    margin-top: 0.25%;
+    margin-bottom: 0.25%;
+    margin-left: 0.25%;
+    margin-right: 0.25%;
+
+    background-color: rgb(100, 180, 255);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.btn:hover {
+    box-shadow: 0px 0px 10px rgb(100, 180, 255);
+    transform: translateY(5px);
+}
+
+#content_area {
+    border: 1px solid rgb(225, 225, 225);
+    padding: 10px;
+    min-height: 180px;
+}
+
+.game-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.credit-div {
+    width: 80%;
+    margin: auto;
+    border: solid 1px rgb(225, 225, 225);
+}
+
+.credit-div-inner {
+    padding: 10px;
+}
+
+.copyright {
+    text-align: center;
+}

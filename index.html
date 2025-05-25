@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSNDL by @bishalqx980</title>
+  <link rel="stylesheet" href="./main.css">
+  <script src="./core/psndl.js"></script>
+  <script src="./main.js"></script>
+</head>
+<body onload="load()">
+    <h1 class="title">
+        PSNDL <span style="font-size: 12px;">by <a href="https://bishalqx980.github.io/bishalqx980/">@bishalqx980</a></span>
+        <p style="font-size: 12px;"> An awesome PS3/PSP/PS4 game/dlc/apps search engine. Returns download link, info, rap file, etc. (PS3 Focused)</p>
+    </h1>
+    <hr><br>
+
+    <div class="main-div">
+        <input id="search_key" type="text" placeholder="Search package" value="">
+        <button class="btn" onclick="search()">Search</button>
+
+        <p>
+            Filter: <select name="" id="filter_packages" onchange="search()"><option value="null">None</option></select>
+            <!-- Region:<select name="" id="region_filter"><option value="none">None</option></select> -->
+        </p>
+
+        <p id="log">Log</p>
+        <p>Note: PS1/PS2 other .pkg files are mainly for PS3 console.</p>
+
+        <div id="content_area"></div>
+    </div>
+    <br>
+
+    <div class="credit-div">
+        <div class="credit-div-inner">
+            <h2>Credits</h2>
+            <hr style="width: 100%;">
+            <p>- James St-Pierre: Thanks for `database.csv` file</p>
+            <p>- And thanks to me for `database.json` and all other stuffs lol 😝</p>
+        </div>
+    </div>
+
+    <p class="copyright">❐ Project maintained by <a href="https://bishalqx980.github.io/bishalqx980/">@bishalqx980</a> | Copyright: <span id="from_year">2025</span> - <span id="current_year"></span></p>
+</body>
+</html>
