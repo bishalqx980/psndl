@@ -19,6 +19,7 @@ function load() {
 
 async function renderDatabaseContents() {
     // this will load all content in database
+    const startTime = performance.now();
 
     const contentArea = document.getElementById("content_area");
 
@@ -39,7 +40,7 @@ async function renderDatabaseContents() {
 
     for (const packageType in database) {
         if (loadHTMLContent && loadedPackageCount < maxLoadPackage) {
-            HTMLContent += `<h2 style='text-align: center;'>${packageType}</h2><hr>`
+            HTMLContent += `<h2 style='text-align: center;'>${packageType}</h2><hr>`;
         }
 
         for (const packageRegion in database[packageType]) {
@@ -47,6 +48,7 @@ async function renderDatabaseContents() {
                 const packageData = database[packageType][packageRegion][packageID];
 
                 loadedPackageCount += 1;
+                showMsg("Package loaded: " + loadedPackageCount);
 
                 if (loadHTMLContent && loadedPackageCount < maxLoadPackage) {
                     HTMLContent += `
@@ -69,7 +71,8 @@ async function renderDatabaseContents() {
         contentArea.innerHTML = HTMLContent;
     }
 
-    showMsg("Total package loaded: " + loadedPackageCount);
+    const endTime = performance.now();
+    showMsg("Total package loaded: " + loadedPackageCount + " in " + ((endTime - startTime) / 1000).toFixed(2) + "sec");
 }
 
 async function generatePageAxiliaryContents() {

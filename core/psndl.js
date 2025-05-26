@@ -12,6 +12,7 @@ async function fetch_database(database_path = "https://psndl.pages.dev/database.
         }
     } catch (error) {
         alert(error);
+        showMsg(error);
     }
 }
 
