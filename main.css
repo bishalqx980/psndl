@@ -62,6 +62,12 @@ a {
     transform: translateY(5px);
 }
 
+.note-div {
+    margin: auto;
+    border: solid 1px rgb(225, 225, 225);
+    padding: 10px;
+}
+
 #content_area {
     border: 1px solid rgb(225, 225, 225);
     padding: 10px;

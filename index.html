@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PSNDL by @bishalqx980</title>
+  <link rel="shortcut icon" href="https://bishalqx980.github.io/bishalqx980/other/ps3.png" type="image/x-icon">
   <link rel="stylesheet" href="./main.css">
   <script src="./core/psndl.js"></script>
   <script src="./main.js"></script>
@@ -11,7 +12,7 @@
 <body onload="load()">
     <h1 class="title">
         PSNDL <span style="font-size: 12px;">by <a href="https://bishalqx980.github.io/bishalqx980/">@bishalqx980</a></span>
-        <p style="font-size: 12px;"> An awesome PS3/PSP/PS4 game/dlc/apps search engine. Returns download link, info, rap file, etc. (PS3 Focused)</p>
+        <p style="font-size: 12px;">An awesome PS3/PSP/PS4 game/dlc/apps search engine. Returns download link, info, rap file, etc. (PS3 Focused)</p>
     </h1>
     <hr><br>
 
@@ -24,8 +25,17 @@
             <!-- Region:<select name="" id="region_filter"><option value="none">None</option></select> -->
         </p>
 
-        <p id="log">Log</p>
-        <p>Note: PS1/PS2 other .pkg files are mainly for PS3 console.</p>
+        <div class="note-div">
+            <p id="log">Log</p>
+
+            <span>
+                <strong>Notes:</strong>
+                <li><span style="color: red;">If the <strong>DOWNLOAD</strong> button doesn't works, right-click on it, copy the link, and download.</span></li>
+                <li><strong style="color: red;">Missing RAP</strong> indicates that the package doesn't have/need a RAP file. (RAP is the license file for package, some game/dlc doesn't need that)</li>
+                <li>PS1/PS2/other <strong>.pkg</strong> files are custom/originally build for PS3 console.</li>
+            </span>
+        </div>
+        <br>
 
         <div id="content_area"></div>
     </div>

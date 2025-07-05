@@ -1,5 +1,5 @@
 function showMsg(message) {
-    document.getElementById("log").textContent = message;
+    document.getElementById("log").innerHTML = `<strong>Log:</strong> ${message}`;
 }
 
 function load() {
@@ -18,9 +18,10 @@ function load() {
 }
 
 async function renderDatabaseContents() {
-    // this will load all content in database
-    const startTime = performance.now();
+    // this will load all content from database
+    showMsg("Loading DATABASE, please wait!");
 
+    const startTime = performance.now();
     const contentArea = document.getElementById("content_area");
 
     const database = await fetch_database();
@@ -60,7 +61,7 @@ async function renderDatabaseContents() {
                             <p><b>Rap:</b> ${packageData.rap_name}</p>
                             <p><b>Author:</b> ${packageData.author}</p>
                             <p><b>Description:</b> ${packageData.desc}</p>
-                            <a href='${packageData.link}'><button class='btn'>Download File</button></a>
+                            <a href='${packageData.link}' target='_blank'><button class='btn'>Download File</button></a>
                             <button class='btn' onclick='downloadRap("${packageData.rap_name}", "${packageData.rap_data}")'>Download RAP</button>
                         </div>
                     `;
@@ -81,7 +82,7 @@ async function generatePageAxiliaryContents() {
     const filter_packagesElement = document.getElementById("filter_packages");
     // const region_filterElement = document.getElementById("region_filter");
 
-    const database = await fetch_database(); // core/psndl.js
+    const database = await fetch_database(); // execute from core/psndl.js
     if (!database) {
         return
     }
@@ -137,16 +138,23 @@ async function search() {
         for (const game_id in data[game_type]) {
             const game = data[game_type][game_id];
 
+            let game_name = game.name; // need this to edit game name if there is no rap data
+            let is_game_rap = game.rap_data;
+
+            if (!is_game_rap) {
+                game_name += " <span style='color: red;'>(Missing RAP)</span>"
+            }
+
             HTMLContent += `
                 <div class="game-item">
-                    <h3>${game.name}</h3>
+                    <h3>${game_name}</h3>
                     <p><b>ID:</b> ${game.id}</p>
                     <p><b>Type:</b> ${game.type}</p>
                     <p><b>Region:</b> ${game.region}</p>
                     <p><b>Rap:</b> ${game.rap_name}</p>
                     <p><b>Author:</b> ${game.author}</p>
                     <p><b>Description:</b> ${game.desc}</p>
-                    <a href='${game.link}'><button class='btn'>Download File</button></a>
+                    <a href='${game.link}' target='_blank'><button class='btn'>Download File</button></a>
                     <button class='btn' onclick='downloadRap("${game.rap_name}", "${game.rap_data}")'>Download RAP</button>
                 </div>
             `;
