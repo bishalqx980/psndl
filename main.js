@@ -1,8 +1,4 @@
-function showMsg(message) {
-    document.getElementById("log").innerHTML = `<strong>Log:</strong> ${message}`;
-}
-
-function load() {
+document.addEventListener("DOMContentLoaded", function() {
     const from_yearElement = document.getElementById("from_year");
     const current_yearElement = document.getElementById("current_year");
 
@@ -15,6 +11,14 @@ function load() {
     current_yearElement.textContent = date.getFullYear();
     generatePageAxiliaryContents();
     renderDatabaseContents();
+
+    // Package Search
+    document.getElementById("searchPackage").addEventListener("click", search);
+    document.getElementById("filter_packages").addEventListener("change", search);
+});
+
+function showMsg(message) {
+    document.getElementById("log").innerHTML = `<strong>Log:</strong> ${message}`;
 }
 
 async function renderDatabaseContents() {
@@ -133,7 +137,7 @@ async function search() {
     let HTMLContent = "";
 
     for (const game_type in data) {
-        HTMLContent += `<h2>${game_type}</h2><hr><br>`
+        HTMLContent += `<h2 style='text-align: center;color:rgb(0, 150, 255);'>${game_type}</h2><hr><br>`
 
         for (const game_id in data[game_type]) {
             const game = data[game_type][game_id];
