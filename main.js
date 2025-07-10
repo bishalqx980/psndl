@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", async function() {
-    const from_yearElement = document.getElementById("from_year");
-    const current_yearElement = document.getElementById("current_year");
-
+    const copyrightYear = document.getElementById("copyrightYear");
     const date = new Date();
-    // Exception
-    if (date.getFullYear() == "2025") {
-        from_yearElement.textContent = "";
-    }
+    const currentYear = date.getFullYear();
 
-    current_yearElement.textContent = date.getFullYear();
+    if (currentYear == "2025") {
+        copyrightYear.innerHTML = "2025";
+    } else {
+        copyrightYear.innerHTML = `2025 - ${currentYear}`;
+    }
 
     // Loading Database
     showMsg("<h2 style='color: red;'>Loading database, please wait!</h2>");

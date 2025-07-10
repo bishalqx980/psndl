@@ -13,11 +13,11 @@ async function fetch_database() {
                 return cachedDatabase;
             } else {
                 const errorText = await response.text();
-                alert(`Error (${response.status}): ${errorText}`);
+                alert(`Error (${response.status}): ${errorText}\nTry to reload the page & wait!`);
                 return
             }
         } catch (error) {
-            alert(error);
+            alert(`Error: ${error}\nTry to reload the page & wait! (possibly internet issue)`);
             showMsg(error);
         }
     }
