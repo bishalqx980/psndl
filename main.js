@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
     const from_yearElement = document.getElementById("from_year");
     const current_yearElement = document.getElementById("current_year");
 
@@ -9,8 +9,36 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     current_yearElement.textContent = date.getFullYear();
-    generatePageAxiliaryContents();
-    renderDatabaseContents();
+
+    // Loading Database
+    showMsg("<h2 style='color: red;'>Loading database, please wait!</h2>");
+
+    const startTime = performance.now();
+    const contentArea = document.getElementById("content_area");
+    let loadedPackageCount = 0;
+    
+    const database = await fetch_database();
+    if (database) {
+        for (const packageType in database) {
+            for (const packageRegion in database[packageType]) {
+                for (const packageID in database[packageType][packageRegion]) {
+                    // const packageData = database[packageType][packageRegion][packageID];
+
+                    loadedPackageCount += 1;
+                    showMsg("Package loaded: " + loadedPackageCount);
+                }
+            }
+        }
+
+        const endTime = performance.now();
+        showMsg("Total package loaded " + loadedPackageCount + " in " + ((endTime - startTime) / 1000).toFixed(2) + "sec");
+        contentArea.innerHTML = "<p>Search for package...</p>";
+    } else {
+        showMsg("<h2 style='color: red;'>Something went wrong! Database isn't loaded!</h2>");
+        contentArea.innerHTML = "<p style='color: red;'>Something went wrong! Database isn't loaded!</p>";
+    }
+
+    await generatePageAxiliaryContents();
 
     // Package Search
     document.getElementById("searchPackage").addEventListener("click", search);
@@ -19,65 +47,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function showMsg(message) {
     document.getElementById("log").innerHTML = `<strong>Log:</strong> ${message}`;
-}
-
-async function renderDatabaseContents() {
-    // this will load all content from database
-    showMsg("Loading DATABASE, please wait!");
-
-    const startTime = performance.now();
-    const contentArea = document.getElementById("content_area");
-
-    const database = await fetch_database();
-    if (!database) {
-        contentArea.innerHTML = "<p>Something went wrong! Database isn't loaded!</p>";
-        return
-    }
-    
-    let HTMLContent = "";
-    let loadedPackageCount = 0;
-    let maxLoadPackage = 10;
-
-    let loadHTMLContent = false;
-    if (!loadHTMLContent) {
-        HTMLContent += "<p>Search for package</p>";
-    }
-
-    for (const packageType in database) {
-        if (loadHTMLContent && loadedPackageCount < maxLoadPackage) {
-            HTMLContent += `<h2 style='text-align: center;'>${packageType}</h2><hr>`;
-        }
-
-        for (const packageRegion in database[packageType]) {
-            for (const packageID in database[packageType][packageRegion]) {
-                const packageData = database[packageType][packageRegion][packageID];
-
-                loadedPackageCount += 1;
-                showMsg("Package loaded: " + loadedPackageCount);
-
-                if (loadHTMLContent && loadedPackageCount < maxLoadPackage) {
-                    HTMLContent += `
-                        <div class="game-item">
-                            <h3>${packageData.name}</h3>
-                            <p><b>ID:</b> ${packageData.id}</p>
-                            <p><b>Type:</b> ${packageData.type}</p>
-                            <p><b>Region:</b> ${packageData.region}</p>
-                            <p><b>Rap:</b> ${packageData.rap_name}</p>
-                            <p><b>Author:</b> ${packageData.author}</p>
-                            <p><b>Description:</b> ${packageData.desc}</p>
-                            <a href='${packageData.link}' target='_blank'><button class='btn'>Download File</button></a>
-                            <button class='btn' onclick='downloadRap("${packageData.rap_name}", "${packageData.rap_data}")'>Download RAP</button>
-                        </div>
-                    `;
-                }
-            }
-        }
-
-        contentArea.innerHTML = HTMLContent;
-    }
-
-    const endTime = performance.now();
-    showMsg("Total package loaded: " + loadedPackageCount + " in " + ((endTime - startTime) / 1000).toFixed(2) + "sec");
 }
 
 async function generatePageAxiliaryContents() {

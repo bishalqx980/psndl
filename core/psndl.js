@@ -1,18 +1,25 @@
-async function fetch_database(database_path = "https://psndl.pages.dev/database.json") {
-    try {
-        const response = await fetch(database_path);
+const databaseURL = "https://psndl.pages.dev/database.json";
+let cachedDatabase = null;
 
-        if (response.ok) {
-            const data = await response.json();
-            return data;
-        } else {
-            const errorText = await response.text();
-            alert(`Error (${response.status}): ${errorText}`);
-            return
+async function fetch_database() {
+    if (cachedDatabase) {
+        return cachedDatabase;
+    } else {
+        try {
+            const response = await fetch(databaseURL);
+
+            if (response.ok) {
+                cachedDatabase = await response.json();
+                return cachedDatabase;
+            } else {
+                const errorText = await response.text();
+                alert(`Error (${response.status}): ${errorText}`);
+                return
+            }
+        } catch (error) {
+            alert(error);
+            showMsg(error);
         }
-    } catch (error) {
-        alert(error);
-        showMsg(error);
     }
 }
 
