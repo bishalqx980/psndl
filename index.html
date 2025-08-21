@@ -6,51 +6,58 @@
   <title>PSNDL by @bishalqx980</title>
   <link rel="shortcut icon" href="https://bishalqx980.github.io/assets/playstation.png" type="image/x-icon">
   <link rel="stylesheet" href="./main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
   <script src="./core/psndl.js"></script>
   <script src="./main.js"></script>
 </head>
 <body>
-    <h1 class="title">
-        PSNDL <span style="font-size: 12px;">by <a href="https://bishalqx980.github.io/bishalqx980/">@bishalqx980</a></span>
-        <p style="font-size: 12px;">An awesome PS3/PSP/PS4 game/dlc/apps search engine. Returns download link, info, rap file, etc. (PS3 Focused)</p>
-    </h1>
-    <hr><br>
+    <header class="title">
+        <h1>PSNDL <span style="font-size: 0.8rem;">by <a href="https://bishalqx980.github.io/bishalqx980/">@bishalqx980</a></span></h1>
+        <p>An awesome PS3/PSP/PS4 game/dlc/apps search engine. Returns download link, info, rap file, etc. (PS3 Focused)</p>
+    </header>
+    
+    <hr>
+    
+    <main class="main-div">
+        <div class="search-container">
+            <input id="search_key" type="text" placeholder="Search for packages..." value="">
+            <button class="btn" id="searchPackage">Search</button>
+        </div>
 
-    <div class="main-div">
-        <input id="search_key" type="text" placeholder="Search package" value="">
-        <button class="btn" id="searchPackage">Search</button>
-
-        <p>
-            Filter: <select name="" id="filter_packages"><option value="null">ALL</option></select>
-            <!-- Region:<select name="" id="region_filter"><option value="none">None</option></select> -->
-        </p>
+        <div class="filter-container">
+            <p>Filter:</p>
+            <select id="filter_packages">
+                <option value="null">ALL</option>
+            </select>
+        </div>
 
         <div class="note-div">
-            <p id="log">Log</p>
+            <p id="log">Ready to search...</p>
 
-            <span>
+            <div>
                 <strong>Notes:</strong>
-                <li><span style="color: red;">If the <strong>DOWNLOAD</strong> button doesn't works, right-click on it, copy the link, and download.</span></li>
-                <li><strong style="color: red;">Missing RAP</strong> indicates that the package doesn't have/need a RAP file. (RAP is the license file for package, some game/dlc doesn't need that)</li>
-                <li>PS1/PS2/other <strong>.pkg</strong> files are custom/originally build for PS3 console.</li>
-            </span>
+                <ul>
+                    <li><span style="color: var(--danger);">If the <b>DOWNLOAD</b> button doesn't work, right-click on it, copy the link, and download.</span></li>
+                    <li><strong style="color: var(--danger);">Missing RAP</strong> indicates that the package doesn't have/need a RAP file. (RAP is the license file for package, some game/dlc doesn't need that)</li>
+                    <li>PS1/PS2/other <strong>.pkg</strong> files are custom/originally built for PS3 console.</li>
+                </ul>
+            </div>
         </div>
-        <br>
 
         <div id="content_area"></div>
-        <br>
 
-        <!-- Credit Area -->
         <div class="credit-div">
-        <div class="credit-div-inner">
-            <h2>Credits</h2>
-            <hr style="width: 100%;">
-            <p>- James St-Pierre: Thanks for `database.csv` file</p>
-            <p>- And thanks to me for `database.json` and all other stuffs lol 😝</p>
+            <div class="credit-div-inner">
+                <h2>Credits</h2>
+                <hr>
+                <p>- James St-Pierre: Thanks for `database.csv` file</p>
+                <p>- And thanks to me for `database.json` and all other stuffs lol 😝</p>
+            </div>
         </div>
-    </div>
-    </div>
+    </main>
 
-    <p class="copyright">❐ Project maintained by <a href="https://bishalqx980.github.io/bishalqx980/">@bishalqx980</a> | Copyright: <span id="copyrightYear"></span></p>
+    <footer class="copyright">
+        ❐ Project maintained by <a href="https://bishalqx980.github.io/bishalqx980/">@bishalqx980</a> | Copyright: <span id="copyrightYear"></span>
+    </footer>
 </body>
 </html>
