@@ -10,14 +10,25 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 
     // Loading Database
-    showMsg("<h2 style='color: red;'>Loading database, please wait!</h2>");
-
+    const databaseLoadingDiv = document.getElementById("databaseLoadingDiv");
+    const databaseLoadingMessage = document.getElementById("databaseLoadingMessage");
+    const mainDiv = document.getElementById("mainDiv");
     const startTime = performance.now();
     const contentArea = document.getElementById("content_area");
     let loadedPackageCount = 0;
-    
+
+    databaseLoadingMessage.innerText = "Loading Database... Please wait!";
+    // If database loading takes more time then 5 sec
+    setTimeout(() => {
+        databaseLoadingMessage.innerHTML += "<br>This is taking a bit longer than usual. Please wait, check your internet connection, or try reloading the page.";
+    }, 5000) // 5 Sec
+
     const database = await fetch_database();
     if (database) {
+        // Hide loading database div & Show main section
+        databaseLoadingDiv.style.display = "none";
+        mainDiv.style.display = "";
+
         for (const packageType in database) {
             for (const packageRegion in database[packageType]) {
                 for (const packageID in database[packageType][packageRegion]) {
@@ -40,8 +51,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     await generatePageAxiliaryContents();
 
     // Package Search
-    document.getElementById("searchPackage").addEventListener("click", search);
-    document.getElementById("filter_packages").addEventListener("change", search);
+    document.getElementById("searchPackage").addEventListener("click", () => search());
+    document.getElementById("filter_packages").addEventListener("change", () => search());
 
     // Note toggle button
     document.getElementById("toggleNote").addEventListener("click", function() {
@@ -52,6 +63,21 @@ document.addEventListener("DOMContentLoaded", async function() {
             notes.style.display = "none";
         }
     });
+
+    // Loading Package/Content based on URL params
+    const params = new URLSearchParams(window.location.search);
+    let name = params.get("name");
+    let type = params.get("type");
+
+    if (type) {
+        type = type.toUpperCase();
+    } else {
+        type = "null";
+    }
+
+    if (name) {
+        await search(name, type);
+    }
 });
 
 function showMsg(message) {
@@ -100,18 +126,33 @@ function missingRapAlert() {
     return alert("This package is either missing RAP (license) data or does not require a RAP file.");
 }
 
-async function search() {
+async function search(search_key = null, filter_packages = null) {
+    // Note: Search Button is efficient bcz URL param causes window reload which trigger database load again n again!!
     const search_keyElement = document.getElementById("search_key");
     const contentArea = document.getElementById("content_area");
     const filter_packagesElement = document.getElementById("filter_packages");
 
-    if (!search_keyElement.value) {
+    const content_name = search_key ?? search_keyElement.value;
+    const content_type = filter_packages ?? filter_packagesElement.value;
+
+    // If not any name then this
+    if (!content_name) {
         return search_keyElement.focus();
     }
 
+    // Filling gaps with searched values (mostly for URL param)
+    search_keyElement.value = content_name;
+    filter_packagesElement.value = content_type;
+    // Replacing URL with new searched name & type
+    const windowURL = new URL(window.location);
+
+    windowURL.searchParams.set("name", content_name);
+    windowURL.searchParams.set("type", content_type);
+    history.replaceState(null, '', windowURL);
+
     showMsg("Searching...");
 
-    const data = await searchDB(search_keyElement.value, filter_packagesElement.value); // core/psndl.js
+    const data = await searchDB(content_name, content_type); // core/psndl.js
     if (!data) {
         var error_message = "No packages found matching your search.";
         showMsg(error_message);

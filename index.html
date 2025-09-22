@@ -17,8 +17,14 @@
     </header>
     
     <hr>
+
+    <!-- Database Loading Div -->
+    <div id="databaseLoadingDiv">
+        <div class="animationLoader"></div>
+        <h2 style="color: var(--danger);" id="databaseLoadingMessage"></h2>
+    </div>
     
-    <main class="main-div">
+    <main class="main-div" id="mainDiv" style="display: none;">
         <div class="search-container">
             <form class="searchKeyForm" onsubmit="event.preventDefault()">
                 <input id="search_key" type="text" placeholder="Search for packages..." value="">
