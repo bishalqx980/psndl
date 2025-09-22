@@ -94,11 +94,16 @@ a:hover {
     margin-bottom: 1.5rem;
 }
 
+.searchKeyForm {
+    width: 100%;
+}
+
 #search_key {
     flex: 1;
-    min-width: 250px;
+    width: 100%;
     max-width: 500px;
     padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
     font-size: 1rem;
     border: 1px solid var(--gray-300);
     border-radius: var(--border-radius);
@@ -150,6 +155,7 @@ a:hover {
 .btn {
     background-color: var(--primary);
     padding: 0.75rem 1.5rem;
+    margin-bottom: 0.75rem;
     border: none;
     border-radius: var(--border-radius);
     font-size: 1rem;
@@ -178,9 +184,12 @@ a:hover {
     background-color: var(--gray-100);
 }
 
-.note-div strong {
+.noteBTN {
+    background-color: var(--danger);
+}
+
+.note-div b {
     color: var(--gray-800);
-    display: block;
     margin-bottom: 0.75rem;
 }
 
@@ -198,10 +207,9 @@ a:hover {
     padding: 0.75rem;
     background-color: var(--gray-200);
     border-radius: var(--border-radius);
-    font-family: monospace;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-bottom: 1rem;
     min-height: 40px;
-    display: flex;
     align-items: center;
 }
 
@@ -215,15 +223,12 @@ a:hover {
 }
 
 .game-item {
+    background-color: var(--gray-100);
     margin-bottom: 1.25rem;
     padding: 1.25rem;
-    border-bottom: 1px solid var(--gray-200);
     transition: var(--transition);
     border-radius: var(--border-radius);
-}
-
-.game-item:hover {
-    background-color: var(--gray-100);
+    box-shadow: 3px 3px 5px var(--gray-200);
 }
 
 .credit-div {

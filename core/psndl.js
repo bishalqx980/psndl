@@ -13,8 +13,7 @@ async function fetch_database() {
                 return cachedDatabase;
             } else {
                 const errorText = await response.text();
-                alert(`Error (${response.status}): ${errorText}\nTry to reload the page & wait!`);
-                return
+                return alert(`Error (${response.status}): ${errorText}\nTry to reload the page & wait!`);
             }
         } catch (error) {
             alert(`Error: ${error}\nTry to reload the page & wait! (possibly internet issue)`);
@@ -25,8 +24,7 @@ async function fetch_database() {
 
 async function searchDB(gameName, filteredGameType="null") {
     if (!gameName) {
-        alert("Game Name / Search key wasn't given!");
-        return
+        return alert("Game Name / Search key wasn't given!");
     }
 
     const database = await fetch_database();
@@ -65,8 +63,7 @@ async function searchDB(gameName, filteredGameType="null") {
 
 function downloadRap(rapName, rapHexData) {
     if (!rapHexData) {
-        alert("There is no Rap data for this package.");
-        return
+        return alert("There is no Rap data for this package.");
     }
     
     const bytes = [];

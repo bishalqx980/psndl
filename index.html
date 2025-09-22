@@ -20,8 +20,10 @@
     
     <main class="main-div">
         <div class="search-container">
-            <input id="search_key" type="text" placeholder="Search for packages..." value="">
-            <button class="btn" id="searchPackage">Search</button>
+            <form class="searchKeyForm" onsubmit="event.preventDefault()">
+                <input id="search_key" type="text" placeholder="Search for packages..." value="">
+                <button class="btn" id="searchPackage">Search</button>
+            </form>
         </div>
 
         <div class="filter-container">
@@ -34,12 +36,13 @@
         <div class="note-div">
             <p id="log">Ready to search...</p>
 
-            <div>
-                <strong>Notes:</strong>
+            <button class="btn noteBTN" id="toggleNote">Notes</button>
+
+            <div id="notes" style="display: none;">
                 <ul>
-                    <li><span style="color: var(--danger);">If the <b>DOWNLOAD</b> button doesn't work, right-click on it, copy the link, and download.</span></li>
-                    <li><strong style="color: var(--danger);">Missing RAP</strong> indicates that the package doesn't have/need a RAP file. (RAP is the license file for package, some game/dlc doesn't need that)</li>
-                    <li>PS1/PS2/other <strong>.pkg</strong> files are custom/originally built for PS3 console.</li>
+                    <li><span style="color: var(--danger);">If the <b style="color: var(--primary);">DOWNLOAD</b> button doesn't work, right-click on it, copy the link, and download.</span></li>
+                    <li><b style="color: var(--danger);">Missing RAP</b> indicates that the package doesn't have/need a RAP file. (RAP is the license file for package, some game/dlc doesn't need that)</li>
+                    <li>PS1/PS2/other <b>.pkg</b> files are custom/originally built for PS3 console.</li>
                 </ul>
             </div>
         </div>

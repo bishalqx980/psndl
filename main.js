@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", async function() {
         }
 
         const endTime = performance.now();
-        showMsg("Total package loaded " + loadedPackageCount + " in " + ((endTime - startTime) / 1000).toFixed(2) + "sec");
-        contentArea.innerHTML = "<p>Search for package...</p>";
+        showMsg("Total package's loaded " + loadedPackageCount + " in " + ((endTime - startTime) / 1000).toFixed(2) + "sec");
+        contentArea.innerHTML = "<p>Search for packages...</p>";
     } else {
         showMsg("<h2 style='color: red;'>Something went wrong! Database isn't loaded!</h2>");
         contentArea.innerHTML = "<p style='color: red;'>Something went wrong! Database isn't loaded!</p>";
@@ -42,10 +42,20 @@ document.addEventListener("DOMContentLoaded", async function() {
     // Package Search
     document.getElementById("searchPackage").addEventListener("click", search);
     document.getElementById("filter_packages").addEventListener("change", search);
+
+    // Note toggle button
+    document.getElementById("toggleNote").addEventListener("click", function() {
+        const notes = document.getElementById("notes");
+        if (notes.style.display === "none" || notes.style.display === "") {
+            notes.style.display = "block";
+        } else {
+            notes.style.display = "none";
+        }
+    });
 });
 
 function showMsg(message) {
-    document.getElementById("log").innerHTML = `<strong>Log:</strong> ${message}`;
+    document.getElementById("log").innerHTML = `<b>Log:</b> ${message}`;
 }
 
 async function generatePageAxiliaryContents() {
@@ -92,17 +102,22 @@ async function search() {
     const filter_packagesElement = document.getElementById("filter_packages");
 
     if (!search_keyElement.value) {
-        search_keyElement.focus();
-        return
+        return search_keyElement.focus();
     }
+
+    showMsg("Searching...");
 
     const data = await searchDB(search_keyElement.value, filter_packagesElement.value); // core/psndl.js
     if (!data) {
-        contentArea.innerHTML = "<p>No packages found matching your search.</p>";
-        return
+        var error_message = "No packages found matching your search.";
+        showMsg(error_message);
+        return contentArea.innerHTML = error_message;
     }
+
+    showMsg("Loading...");
     
     let HTMLContent = "";
+    let package_count = 0;
 
     for (const game_type in data) {
         HTMLContent += `<h2 style='text-align: center;color:rgb(0, 150, 255);'>${game_type}</h2><hr><br>`
@@ -114,24 +129,32 @@ async function search() {
             let is_game_rap = game.rap_data;
 
             if (!is_game_rap) {
-                game_name += " <span style='color: red;'>(Missing RAP)</span>"
+                game_name += " <span style='color: red;'>(Missing RAP)</span>";
+                rap_dlbtn = `<button class='btn' style='background-color: var(--danger);' onclick='downloadRap("${game.rap_name}", "${game.rap_data}")'>Download RAP</button>`;
+            } else {
+                rap_dlbtn = `<button class='btn' onclick='downloadRap("${game.rap_name}", "${game.rap_data}")'>Download RAP</button>`;
             }
 
+            // here the package_count need +1 bcz the package_count starts with 0
             HTMLContent += `
                 <div class="game-item">
-                    <h3>${game_name}</h3>
+                    <h3>${package_count + 1}. ${game_name}</h3>
                     <p><b>ID:</b> ${game.id}</p>
                     <p><b>Type:</b> ${game.type}</p>
                     <p><b>Region:</b> ${game.region}</p>
                     <p><b>Rap:</b> ${game.rap_name}</p>
                     <p><b>Author:</b> ${game.author}</p>
                     <p><b>Description:</b> ${game.desc}</p>
+                    <br>
                     <a href='${game.link}' target='_blank'><button class='btn'>Download File</button></a>
-                    <button class='btn' onclick='downloadRap("${game.rap_name}", "${game.rap_data}")'>Download RAP</button>
+                    ${rap_dlbtn}
                 </div>
             `;
+            
+            package_count += 1;
         }
 
         contentArea.innerHTML = HTMLContent;
+        showMsg(`${package_count} Package's found! Check below...`);
     }
 }
