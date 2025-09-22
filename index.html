@@ -27,7 +27,7 @@
     <main class="main-div" id="mainDiv" style="display: none;">
         <div class="search-container">
             <form class="searchKeyForm" onsubmit="event.preventDefault()">
-                <input id="search_key" type="text" placeholder="Search for packages..." value="">
+                <input id="search_key" type="text" placeholder="Search for packages..." value="" required>
                 <button class="btn" id="searchPackage">Search</button>
             </form>
         </div>
@@ -39,10 +39,11 @@
             </select>
         </div>
 
-        <div class="note-div">
+        <div class="tools-div">
             <p id="log">Ready to search...</p>
 
             <button class="btn noteBTN" id="toggleNote">Notes</button>
+            <button class="btn" id="toggleGenRAP">Generate RAP</button>
 
             <div id="notes" style="display: none;">
                 <ul>
@@ -50,6 +51,17 @@
                     <li><b style="color: var(--danger);">Missing RAP</b> indicates that the package doesn't have/need a RAP file. (RAP is the license file for package, some game/dlc doesn't need that)</li>
                     <li>PS1/PS2/other <b>.pkg</b> files are custom/originally built for PS3 console.</li>
                 </ul>
+            </div>
+
+            <div id="GenerateRapDiv" style="display: none;">
+                <ul>
+                    <li><b style="color: var(--danger);">Use with caution! Wrong Name or Hex will generate invalid RAP file.</b></li>
+                </ul>
+                <form onsubmit="event.preventDefault()">
+                    <input id="GenRapName" class="GenRapInputCss" type="text" placeholder="Rap Name" required>
+                    <input id="GenRapData" class="GenRapInputCss" type="text" placeholder="Rap Data (hex)" required>
+                    <button class="btn" onclick="downloadRap(document.getElementById('GenRapName').value, document.getElementById('GenRapData').value)">Generate</button>
+                </form>
             </div>
         </div>
 

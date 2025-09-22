@@ -57,10 +57,30 @@ document.addEventListener("DOMContentLoaded", async function() {
     // Note toggle button
     document.getElementById("toggleNote").addEventListener("click", function() {
         const notes = document.getElementById("notes");
+        const GenerateRapDiv = document.getElementById("GenerateRapDiv");
+
+        // ALways Hide Generate RAP Div
+        GenerateRapDiv.style.display = "none";
+
         if (notes.style.display === "none" || notes.style.display === "") {
             notes.style.display = "block";
         } else {
             notes.style.display = "none";
+        }
+    });
+
+    // Generate RAP toggle button
+    document.getElementById("toggleGenRAP").addEventListener("click", function() {
+        const notes = document.getElementById("notes");
+        const GenerateRapDiv = document.getElementById("GenerateRapDiv");
+
+        // ALways Hide Notes Div
+        notes.style.display = "none";
+
+        if (GenerateRapDiv.style.display === "none" || GenerateRapDiv.style.display === "") {
+            GenerateRapDiv.style.display = "block";
+        } else {
+            GenerateRapDiv.style.display = "none";
         }
     });
 
