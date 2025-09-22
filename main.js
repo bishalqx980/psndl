@@ -96,6 +96,10 @@ async function generatePageAxiliaryContents() {
     // }
 }
 
+function missingRapAlert() {
+    return alert("This package is either missing RAP (license) data or does not require a RAP file.");
+}
+
 async function search() {
     const search_keyElement = document.getElementById("search_key");
     const contentArea = document.getElementById("content_area");
@@ -124,13 +128,11 @@ async function search() {
 
         for (const game_id in data[game_type]) {
             const game = data[game_type][game_id];
-
-            let game_name = game.name; // need this to edit game name if there is no rap data
+            
             let is_game_rap = game.rap_data;
 
             if (!is_game_rap) {
-                game_name += " <span style='color: red;'>(Missing RAP)</span>";
-                rap_dlbtn = `<button class='btn' style='background-color: var(--danger);' onclick='downloadRap("${game.rap_name}", "${game.rap_data}")'>Download RAP</button>`;
+                rap_dlbtn = `<button class='btn' style='background-color: var(--danger);' onclick='missingRapAlert()'>Missing RAP</button>`;
             } else {
                 rap_dlbtn = `<button class='btn' onclick='downloadRap("${game.rap_name}", "${game.rap_data}")'>Download RAP</button>`;
             }
@@ -138,7 +140,7 @@ async function search() {
             // here the package_count need +1 bcz the package_count starts with 0
             HTMLContent += `
                 <div class="game-item">
-                    <h3>${package_count + 1}. ${game_name}</h3>
+                    <h3>${package_count + 1}. ${game.name}</h3>
                     <p><b>ID:</b> ${game.id}</p>
                     <p><b>Type:</b> ${game.type}</p>
                     <p><b>Region:</b> ${game.region}</p>
