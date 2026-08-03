@@ -1,0 +1,11 @@
+url_games https://bishalqx980.github.io/psndl/pkgi/PS3_GAMES.tsv
+url_dlcs https://bishalqx980.github.io/psndl/pkgi/PS3_DLCS.tsv
+url_themes https://bishalqx980.github.io/psndl/pkgi/PS3_THEMES.tsv
+url_avatars https://bishalqx980.github.io/psndl/pkgi/PS3_AVATARS.tsv
+url_demos https://bishalqx980.github.io/psndl/pkgi/PS3_DEMOS.tsv
+content 0
+sort name
+order asc
+filter ASA,EUR,JPN,USA
+dl_mode_background 1
+no_music 1

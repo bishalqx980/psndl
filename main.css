@@ -288,6 +288,16 @@ a:hover {
     box-shadow: 3px 3px 5px var(--gray-200);
 }
 
+.pkgi {
+    width: 100%;
+    margin: 2rem auto 1rem;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--border-radius);
+    background-color: var(--gray-100);
+}
+
 .credit-div {
     width: 100%;
     margin: 2rem auto 1rem;
